@@ -1,7 +1,8 @@
 import express from "express";
+import * as dotenv from "dotenv";
+import exampleRouter from "./routes/exampleRoutes";
 
-import packageJson from "../package.json";
-
+dotenv.config();
 class Bootstrap {
   public readonly app: express.Application;
 
@@ -19,13 +20,13 @@ class Bootstrap {
   }
 
   loadRoutes() {
-    const { version, name } = packageJson;
     this.app.route("/").get((req, res) => {
       res.send({
-        message: `Welcome to ${name}`,
-        version: version,
+        version: "1.0.0",
       });
     });
+
+    this.app.use("/", exampleRouter);
   }
 }
 
